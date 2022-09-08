@@ -19,7 +19,7 @@ export default function Cell(props) {
         borderStyle: "solid",
         margin: "0px",
       }}
-      onClick={() => {
+      onMouseDown={() => {
         //when clicked, set pixels data at position xPos, yPos with selected color
         paint(xPos, yPos);
       }}

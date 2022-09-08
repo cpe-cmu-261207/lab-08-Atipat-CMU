@@ -9,6 +9,7 @@ export default function Home() {
   //selected color from color picker
   //set black color as default
   const [selColor, setSelColor] = useState("#000000");
+  const [intervalID, setIntervalID] = useState(null);
 
   //16x16 2D Array that holds color data
   const [pixels, setPixels] = useState(CanvasLib.createEmptyCanvas());
@@ -29,6 +30,18 @@ export default function Home() {
     setPixels(CanvasLib.createRandomCanvas());
   };
 
+  const playDisco = () => {
+    const id = setInterval(() => {
+      setPixels(CanvasLib.createRandomCanvas());
+    }, 100);
+    setIntervalID(id);
+  };
+
+  const stopDisco = () => {
+    clearInterval(intervalID);
+    setIntervalID(null);
+  };
+
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "GhostWhite" }}>
       <PainterContext.Provider value={{ selColor, setSelColor, pixels, paint }}>
@@ -42,6 +55,12 @@ export default function Home() {
           </button>
           <button className="btn btn-dark" onClick={randomCanvas}>
             Random Color
+          </button>
+          <button
+            className="btn btn-dark"
+            onClick={intervalID == null ? playDisco : stopDisco}
+          >
+            {intervalID == null ? "Play Disco" : "Stop Disco"}
           </button>
         </div>
       </PainterContext.Provider>
